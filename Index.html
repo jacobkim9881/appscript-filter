@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+     table {
+
+     }
+     button {
+       width: 100%;
+     }
+    </style>
+  </head>
+  <body>
+    <div id='title'>Sort by</div>
+    <div id='filters'> </div>    
+    <br/>
+    <br/>
+    <? var data = loadFilter();
+       let arr = [];?>
+       <table>
+      <? for (var i = 0; i < data.length; i++) { 
+    let time = new Date(data[i][2]);
+    let dateString = data[i][2].toString();
+    let isString = isNaN(time.getFullYear());    
+    let month, date;
+    if (arr.indexOf(dateString) === -1 && !isString) {      
+        arr.push(dateString);
+        month = time.getMonth() + 1;
+        date = time.getDate() + 1;         
+    };?>    
+              <? if(typeof month !== 'undefined') {  ?>
+        <tr>
+          <td>
+            <button class='btn'>
+              <?= month + '/' + date ?>
+            </button>
+          </td>          
+        </tr>
+            <? 
+            } else { 
+            } 
+          } ?>
+    </table>
+    <button id='show_all'>Show All</button>
+    <?
+    //<button id='parse_data'>Set sheet</button>
+    ?>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <input type="button" value="Close"
+        onclick="google.script.host.close()" />
+  </body>
+  <script>    
+    const filters = document.getElementById('filters');
+    const buttons = Array.from(document.getElementsByClassName('btn'));
+    const showAll = document.getElementById('show_all');
+    const parseData = document.getElementById('parse_data');
+
+    //Assign buttons for filtering
+    buttons.forEach( bt => {    
+      bt.onclick = function(e) {
+        console.log(e.target.innerText);
+        google.script.run.filterBtn(e.target.innerText);
+      }
+    });
+
+  //Show all rows
+  showAll.onclick = function() {
+    google.script.run.showAllRows();
+  }
+
+  parseData.onClick = function() {
+    
+  }
+
+  document.body.onload = function() {    
+    //console.log(buttons[0].innerHTML);
+    //alert(filter)
+    //filters.innerHTML = filter[0];
+  }
+  </script>
+  <script src="https://apis.google.com/js/api.js?onload=onApiLoad">
+</script>
+
+</html>
+
