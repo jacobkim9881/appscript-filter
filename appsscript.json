@@ -1,5 +1,5 @@
-{
-  "timeZone": "America/New_York",
+v{
+  "timeZone": "Asia/Tokyo",
   "dependencies": {
     "enabledAdvancedServices": [
       {
@@ -18,8 +18,33 @@
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
+{
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "Docs",
+        "version": "v1",
+        "serviceId": "docs"
+      },
+      {
+        "userSymbol": "Sheets",
+        "version": "v4",
+        "serviceId": "sheets"
+      }
+    ]
+  },  
+  "sheets": {"macros": [
+    {
+  "defaultShortcut": "Ctrl+Alt+Shift+1",
+  "functionName": "onOpen",
+  "menuName": "Create Menu"
+   }
+  ]},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
   "webapp": {
     "executeAs": "USER_DEPLOYING",
-    "access": "MYSELF"
+    "access": "ANYONE_ANONYMOUS"
   }
-}
+}  
