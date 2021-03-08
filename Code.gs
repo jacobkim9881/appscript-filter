@@ -9,11 +9,20 @@ function onOpen() {
 }
 
 function sideBar() {
-let html = HtmlService
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  let currentCell = sheet.getCurrentCell();
+  let a1Notation = currentCell.getA1Notation().match(/[A-Z]+|\d+/g);  
+  let colIdx = a1Notation[0];
+  let dateColumn = 'C'
+
+  if (colIdx === dateColumn) {
+  let html = HtmlService
     .createTemplateFromFile('Index')
     .evaluate();
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     .showSidebar(html);
+  }
 }
 
 function onEdit() {
