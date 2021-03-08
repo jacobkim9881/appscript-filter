@@ -11,6 +11,56 @@ return SpreadsheetApp.getActiveSpreadsheet()
 //return data[idNum][columnNum];
 }
 
+function loadSourceSheet() {
+  /// CHANGE id FOR PARSING SOURCE SPREADSHEET ///
+  id = '10Mz7mPm7_zXodu5ceDbxCyXPqpMR6e0hJMQ94WmL9vE';
+  var ss = SpreadsheetApp.openById(id);
+  let sheets = ss.getSheets();
+  return sheets;
+}
+
+function backupSheet() {
+  /// CHANGE id FOR BACK-UP SPREADSHEET ///
+  let id = '1_FbqHapL9_cDH716es2YA3I2_QjBHEKWJAFvraMBPoI'
+  var ss = SpreadsheetApp.openById(id);
+  let backupSheets = ss.getSheets();
+  let sourceSheet = loadSourceSheet();  
+
+  for (let i = 0; i < sourceSheet.length; i++) {
+    let sheet = sourceSheet[i];
+    let sheetName = sheet.getSheetName();
+    let parsedSheet = ss.getSheetByName(sheetName);
+    let data = sheet.getDataRange().getValues();
+    if (parsedSheet === null) {
+      ss.insertSheet(sheetName);
+    } 
+
+    parsedSheet.clear();
+
+    console.log(parsedSheet)   
+    
+  data.forEach(row => {
+    let rowArr = [];
+    row.forEach(val => {
+      rowArr.push(val);
+    })
+    //console.log(row);
+    /// For a new sheet ///
+    parsedSheet === null ? console.log('There is no sheet') : false;    
+    parsedSheet.appendRow(row);
+    
+  })
+  }
+}
+
+function backupDoubleCheck() {
+  try {
+    backupSheet();
+  } catch(err) {
+    backupSheet();
+  }
+}
+
 function dataFromSheet() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheetIdx = ss.getSheetByName('Parsed_Data').getIndex();
@@ -27,7 +77,6 @@ function createSheet() {
   
   /// This is for making a new sheet in current excel ///
   let parsedSheet = ss.getSheetByName('Parsed_Data');
-
   if (parsedSheet !== null) {
     Logger.log('Already has parsedSheet');    
   } else {

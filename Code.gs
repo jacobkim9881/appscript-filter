@@ -4,8 +4,17 @@ function onOpen() {
     .createMenu('Filter')
     .addItem('Open', 'openDialog')
     .addToUi();
-  createTriggers();    
+  //createTriggers();    
   createSheet();
+}
+
+
+function createTimeDrivenTriggers() {
+  // Trigger backup data every day.
+  ScriptApp.newTrigger('backupDoubleCheck')
+      .timeBased()
+      .everyDays(1)
+      .create();
 }
 
 function sideBar() {
